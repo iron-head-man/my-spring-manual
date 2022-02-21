@@ -13,22 +13,20 @@ import java.lang.reflect.Constructor;
  */
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
 
-//    private InstantiationStrategy instantiationStrategy = new CglibSubclassingInstantiationStrategy();
+    private InstantiationStrategy instantiationStrategy = new CglibSubclassingInstantiationStrategy();
 
     @Override
     protected Object createBean(String name, BeanDefinition beanDefinition, Object[] args) throws BeanException {
 
         Object bean = null;
-
         try {
-            createBeanInstance(name, beanDefinition, args);
+            bean = createBeanInstance(name, beanDefinition, args);
 
         } catch (Exception e) {
             throw new BeanException("the creation of bean is failed");
         }
-
-
-        return null;
+        addSingleton(name,bean);
+        return bean;
     }
 
     protected Object createBeanInstance(String name, BeanDefinition beanDefinition, Object[] args) {
@@ -41,6 +39,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         Constructor[] declaredConstructors = clazz.getDeclaredConstructors();
         //4.遍历构造器
         for (Constructor cons : declaredConstructors) {
+            //TODO 思考：只是参数个数一样就返回这个构造器合理吗？？？
             if (args!=null && cons.getParameterTypes().length==args.length){
                 constructorToUse = cons;
             }
@@ -49,5 +48,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         return getInstantiationStrategy().instantiate(beanDefinition, name, constructorToUse, args);
     }
 
-    public InstantiationStrategy getInstantiationStrategy(){return null;}
+    public InstantiationStrategy getInstantiationStrategy(){return instantiationStrategy;}
+
+    public void setInstantiationStrategy(InstantiationStrategy instantiationStrategy) {
+        this.instantiationStrategy = instantiationStrategy;
+    }
 }

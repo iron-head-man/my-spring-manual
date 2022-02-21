@@ -23,6 +23,7 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
             if (cons != null) {
                 return clazz.getDeclaredConstructor(cons.getParameterTypes()).newInstance(args);
             } else {
+                //传入构造器为空，返回一个
                 return clazz.getDeclaredConstructor().newInstance();
             }
 
