@@ -11,6 +11,10 @@ public class Student {
 
     private String grade;
 
+    public Student(){
+
+    }
+
     public Student(String name) {
         this.name = name;
     }
@@ -52,5 +56,14 @@ public class Student {
 
     public void setGrade(String grade) {
         this.grade = grade;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", grade='" + grade + '\'' +
+                '}';
     }
 }
