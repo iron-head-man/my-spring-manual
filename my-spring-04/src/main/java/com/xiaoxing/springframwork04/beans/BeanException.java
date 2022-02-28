@@ -9,7 +9,7 @@ package com.xiaoxing.springframwork04.beans;
  */
 public class BeanException extends RuntimeException{
 
-    BeanException(String meg){};
+    public BeanException(String msg){super(msg);}
 
-    BeanException(String msg ,Throwable throwable){};
+    public BeanException(String msg ,Throwable throwable){super(msg,throwable);};
 }

@@ -27,8 +27,8 @@ public class PropertyValues {
         return null;
     }
 
-    public PropertyValue[] getPropertyValues(){
-return this.propertyValueList.toArray(new PropertyValue[0]);
+    public PropertyValue[] getPropertyValues() {
+        return this.propertyValueList.toArray(new PropertyValue[0]);
     }
 
 
