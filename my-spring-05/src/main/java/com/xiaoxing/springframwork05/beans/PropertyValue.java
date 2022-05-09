@@ -1,11 +1,11 @@
-package com.xiaoxing.springframwork05.beans.factory;
+package com.xiaoxing.springframwork05.beans;
 
 /**
  * <p>
  *
  * </p>
  *
- * @author heng.xing@hand-china.com 2022-02-23 21:45
+ * @author heng.xing@hand-china.com 2022-05-09 15:51
  */
 public class PropertyValue {
 

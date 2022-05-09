@@ -1,5 +1,7 @@
 package com.xiaoxing.springframwork05.beans.factory;
 
+import com.xiaoxing.springframwork05.beans.BeanException;
+
 /**
  * <p>
  *
@@ -9,5 +11,11 @@ package com.xiaoxing.springframwork05.beans.factory;
  */
 public interface BeanFactory {
 
+
+    Object getBean(String name) throws BeanException;
+
+    Object getBean(String name, Object... args) throws BeanException;
+
+    <T> T getBean(String name, Class<T> requiredType) throws BeanException;
 
 }

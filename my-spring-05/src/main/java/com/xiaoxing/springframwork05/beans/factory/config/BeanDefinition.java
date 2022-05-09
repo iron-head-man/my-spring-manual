@@ -1,7 +1,7 @@
 package com.xiaoxing.springframwork05.beans.factory.config;
 
 
-import com.xiaoxing.springframwork05.beans.factory.PropertyValues;
+import com.xiaoxing.springframwork05.beans.PropertyValues;
 
 /**
  * <p>
@@ -12,8 +12,9 @@ import com.xiaoxing.springframwork05.beans.factory.PropertyValues;
  */
 public class BeanDefinition {
 
+    //类信息
     private Class clazz;
-    //新的属性值
+    //属性值集合
     private PropertyValues propertyValues;
 
 

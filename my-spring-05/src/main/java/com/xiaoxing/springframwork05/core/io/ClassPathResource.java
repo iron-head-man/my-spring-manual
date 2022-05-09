@@ -25,12 +25,12 @@ public class ClassPathResource implements Resource {
     }
 
     public ClassPathResource(String path, ClassLoader classLoader) {
+
         Assert.notNull(path, "Path must be not null");
         this.path = path;
         this.classLoader = (classLoader != null ? classLoader : ClassUtils.getDefaultClassLoader());
 
     }
-
 
     @Override
     public InputStream getInputStream() throws IOException {

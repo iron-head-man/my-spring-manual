@@ -16,7 +16,7 @@ public class ClassUtils {
         try {
             cl = Thread.currentThread().getContextClassLoader();
         } catch (Exception e) {
-
+            System.out.println("获取当前线程类加载器失败！");
         }
         if (cl==null){
             cl = ClassUtils.class.getClassLoader();
