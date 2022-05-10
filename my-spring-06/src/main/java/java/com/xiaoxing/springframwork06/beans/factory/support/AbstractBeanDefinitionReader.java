@@ -1,7 +1,7 @@
-package com.xiaoxing.springframwork05.beans.factory.support;
+package java.com.xiaoxing.springframwork06.beans.factory.support;
 
-import com.xiaoxing.springframwork05.core.io.DefaultResourceLoader;
-import com.xiaoxing.springframwork05.core.io.ResourceLoader;
+import java.com.xiaoxing.springframwork06.core.io.DefaultResourceLoader;
+import java.com.xiaoxing.springframwork06.core.io.ResourceLoader;
 
 /**
  * <p>
