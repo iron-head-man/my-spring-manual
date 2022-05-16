@@ -1,7 +1,9 @@
 package java.com.xiaoxing.springframwork06.beans.factory.support;
 
 
+import java.com.xiaoxing.springframwork06.beans.factory.config.BeanPostProcessor;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import java.com.xiaoxing.springframwork06.beans.BeanException;
@@ -47,8 +49,17 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
     @Override
     public BeanDefinition getBeanDefinition(String beanName) throws BeanException {
         BeanDefinition beanDefinition = beanDefinitionMap.get(beanName);
-        if (beanDefinition == null) throw new BeanException("No bean named '" + beanName + "' is defined");
+        if (beanDefinition == null) {
+            throw new BeanException("No bean named '" + beanName + "' is defined");
+        }
         return beanDefinition;
     }
+
+    @Override
+    public void preInstantiateSingletons() throws BeanException {
+        beanDefinitionMap.keySet().forEach(this::getBean);
+    }
+
+
 
 }

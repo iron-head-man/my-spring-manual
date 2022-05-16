@@ -1,5 +1,6 @@
 package java.com.xiaoxing.springframwork06.beans.factory.support;
 
+import java.com.xiaoxing.springframwork06.beans.BeanException;
 import java.com.xiaoxing.springframwork06.core.io.Resource;
 import java.com.xiaoxing.springframwork06.core.io.ResourceLoader;
 
@@ -53,14 +54,17 @@ public interface BeanDefinitionReader {
      * @author heng.xing@hand-china.com 2022/5/9 16:35
      */
     void loadBeanDefinitions(Resource... resources);
+
     /**
      * <p>
      * 从location加载bean定义
      * </p>
      * @param location:
      * @return void
-     * @author heng.xing@hand-china.com 2022/5/9 16:35
+     * @author heng.xing@hand-china.com 2022/5/17 0:30
      */
-    void loadBeanDefinitions(String location);
+    void loadBeanDefinitions(String location) throws BeanException;
+
+    void loadBeanDefinitions(String... locations) throws BeanException;
 
 }
