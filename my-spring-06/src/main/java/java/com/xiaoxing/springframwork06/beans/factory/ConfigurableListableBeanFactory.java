@@ -4,6 +4,7 @@ package java.com.xiaoxing.springframwork06.beans.factory;
 import java.com.xiaoxing.springframwork06.beans.BeanException;
 import java.com.xiaoxing.springframwork06.beans.factory.config.AutowireCapableBeanFactory;
 import java.com.xiaoxing.springframwork06.beans.factory.config.BeanDefinition;
+import java.com.xiaoxing.springframwork06.beans.factory.config.BeanPostProcessor;
 import java.com.xiaoxing.springframwork06.beans.factory.config.ConfigurableBeanFactory;
 
 /**
@@ -14,5 +15,18 @@ import java.com.xiaoxing.springframwork06.beans.factory.config.ConfigurableBeanF
 public interface ConfigurableListableBeanFactory extends ListableBeanFactory, AutowireCapableBeanFactory, ConfigurableBeanFactory {
 
     BeanDefinition getBeanDefinition(String beanName) throws BeanException;
+
+    /***
+     * <p>
+     *
+     * </p>
+      
+     * @return void
+     * @author heng.xing@hand-china.com 2022/5/11 22:41
+     */
+    void preInstantiateSingletons() throws BeanException;
+
+    void addBeanPostProcessor(BeanPostProcessor beanPostProcessor);
+
 
 }
