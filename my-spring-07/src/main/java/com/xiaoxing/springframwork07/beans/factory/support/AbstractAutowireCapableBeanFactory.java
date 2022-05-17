@@ -1,10 +1,13 @@
 package com.xiaoxing.springframwork07.beans.factory.support;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
+import cn.hutool.core.util.StrUtil;
 import com.xiaoxing.springframwork07.beans.BeansException;
 import com.xiaoxing.springframwork07.beans.PropertyValue;
 import com.xiaoxing.springframwork07.beans.PropertyValues;
+import com.xiaoxing.springframwork07.beans.factory.InitializingBean;
 import com.xiaoxing.springframwork07.beans.factory.config.AutowireCapableBeanFactory;
 import com.xiaoxing.springframwork07.beans.factory.config.BeanDefinition;
 import com.xiaoxing.springframwork07.beans.factory.config.BeanPostProcessor;
@@ -82,8 +85,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         this.instantiationStrategy = instantiationStrategy;
     }
 
-    private Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) {
-        // 1. 执行 BeanPostProcessor Before 处理
+    private Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) throws Exception {
+        // 1. 执行 BeanPostProcessor Before 处理，返回一个包装bean
         Object wrappedBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
 
         // 待完成内容：invokeInitMethods(beanName, wrappedBean, beanDefinition);
@@ -94,7 +97,24 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         return wrappedBean;
     }
 
-    private void invokeInitMethods(String beanName, Object wrappedBean, BeanDefinition beanDefinition) {
+    private void invokeInitMethods(String beanName, Object bean, BeanDefinition beanDefinition) throws Exception{
+        // 1. 实现接口 InitializingBean  , Bean 处理了属性填充后调用，是子类就不需要在这里调用初始化 initMethod.invoke(bean);
+        if (bean instanceof InitializingBean) {
+            ((InitializingBean) bean).afterPropertiesSet();
+        }
+
+        // 2. 注解配置 init-method {判断是为了避免二次执行初始化}，init-method属性的值是读xml文件赋值的，
+        // 初始化方法存在，且不是InitializingBean的子类，执行初始化方法
+        String initMethodName = beanDefinition.getInitMethodName();
+        if (StrUtil.isNotEmpty(initMethodName) && !(bean instanceof InitializingBean)) {
+            //拿到bean的class中的对应的初始化方法
+            Method initMethod = beanDefinition.getBeanClass().getMethod(initMethodName);
+            if (null == initMethod) {
+                throw new BeansException("Could not find an init method named '" + initMethodName + "' on bean with name '" + beanName + "'");
+            }
+            //调用初始化方法
+            initMethod.invoke(bean);
+        }
 
     }
 
@@ -103,7 +123,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         Object result = existingBean;
         for (BeanPostProcessor processor : getBeanPostProcessors()) {
             Object current = processor.postProcessBeforeInitialization(result, beanName);
-            if (null == current) return result;
+            if (null == current) {
+                return result;
+            }
             result = current;
         }
         return result;
@@ -114,7 +136,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         Object result = existingBean;
         for (BeanPostProcessor processor : getBeanPostProcessors()) {
             Object current = processor.postProcessAfterInitialization(result, beanName);
-            if (null == current) return result;
+            if (null == current) {
+                return result;
+            }
             result = current;
         }
         return result;
