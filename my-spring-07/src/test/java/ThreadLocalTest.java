@@ -1,9 +1,9 @@
 import org.junit.Test;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * <p>
@@ -42,5 +42,25 @@ public class ThreadLocalTest {
         taskExecutor.execute(myExcutor);
 
 
+    }
+
+
+    @Test
+    public void test11112() {
+//        RequestAttributes requestAttributes1 = new ServletRequestAttributes( "我是大哥");
+//
+//        RequestAttributes requestAttributes = RequestContextHolder.setRequestAttributes(s);
+//
+//
+//
+//        ThreadPoolExecutor bgtImportValidExecutor = new ThreadPoolExecutor(1, 1, 30,
+//                TimeUnit.MINUTES, new ArrayBlockingQueue<>(10));
+//        CompletionService<Integer> bgtImportValidCs = new ExecutorCompletionService<>(bgtImportValidExecutor);
+//
+//        bgtImportValidCs.submit(()->{
+//
+//
+//            return 1;
+//        });
     }
 }
