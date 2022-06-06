@@ -3,7 +3,7 @@
 
     <bean id="userDao" class="cn.bugstack.springframework.test.bean.UserDao"/>
 
-    <bean id="userService" class="cn.bugstack.springframework.test.bean.com.xiaoxing.springframwork07.test.bean.UserService">
+    <bean id="userService" class="cn.bugstack.springframework.test.bean.com.xiaoxing.springframwork08.test.bean.UserService">
         <property name="uId" value="10001"/>
         <property name="userDao" ref="userDao"/>
     </bean>
