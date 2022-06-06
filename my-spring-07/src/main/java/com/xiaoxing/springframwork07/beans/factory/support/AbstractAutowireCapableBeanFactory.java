@@ -7,6 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import com.xiaoxing.springframwork07.beans.BeansException;
 import com.xiaoxing.springframwork07.beans.PropertyValue;
 import com.xiaoxing.springframwork07.beans.PropertyValues;
+import com.xiaoxing.springframwork07.beans.factory.DisposableBean;
 import com.xiaoxing.springframwork07.beans.factory.InitializingBean;
 import com.xiaoxing.springframwork07.beans.factory.config.AutowireCapableBeanFactory;
 import com.xiaoxing.springframwork07.beans.factory.config.BeanDefinition;
@@ -35,10 +36,41 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         } catch (Exception e) {
             throw new BeansException("Instantiation of bean failed", e);
         }
-
+        // 注册实现了DisposableBean 接口的bean对象
+        registerDisposableBeanIfNecessary(beanName, bean, beanDefinition);
         addSingleton(beanName, bean);
         return bean;
     }
+
+    /**
+     * <p>
+     * 在创建 Bean 对象的实例的时候，需要把销毁方法保存起来，方便后续执行销毁动
+     * 作进行调用。
+     *  那么这个销毁方法的具体方法信息，会被注册到 DefaultSingletonBeanRegistry 中
+     * 新增加的 Map<String, DisposableBean> disposableBeans 属性中
+     * 去，因为这个接口的方法最终可以被类 AbstractApplicationContext 的 close 方法
+     * 通过 getBeanFactory().destroySingletons() 调用。
+     *
+     * 在注册销毁方法的时候，会根据是接口类型和配置类型统一交给
+     * DisposableBeanAdapter 销毁适配器类来做统一处理。实现了某个接口的类可以被
+     * instanceof 判断或者强转后调用接口方法
+     * </p>
+     * @param beanName:
+     * @param bean:
+     * @param beanDefinition:
+     * @param beanName:
+     * @param bean:
+     * @param beanDefinition:
+     * @return void
+     * @author heng.xing@hand-china.com 2022/6/6 22:36
+     */
+    protected void registerDisposableBeanIfNecessary(String beanName, Object bean,
+                                                     BeanDefinition beanDefinition) {
+        if (bean instanceof DisposableBean || StrUtil.isNotEmpty(beanDefinition.getDestroyMethodName())) {
+            registerDisposableBean(beanName, new DisposableBeanAdapter(bean, beanName, beanDefinition));
+        }
+    }
+
 
     protected Object createBeanInstance(BeanDefinition beanDefinition, String beanName, Object[] args) {
         Constructor constructorToUse = null;
@@ -97,7 +129,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         return wrappedBean;
     }
 
-    private void invokeInitMethods(String beanName, Object bean, BeanDefinition beanDefinition) throws Exception{
+    private void invokeInitMethods(String beanName, Object bean, BeanDefinition beanDefinition) throws Exception {
         // 1. 实现接口 InitializingBean  , Bean 处理了属性填充后调用，是子类就不需要在这里调用初始化 initMethod.invoke(bean);
         if (bean instanceof InitializingBean) {
             ((InitializingBean) bean).afterPropertiesSet();

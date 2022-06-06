@@ -15,7 +15,7 @@ import com.xiaoxing.springframwork07.core.io.DefaultResourceLoader;
  * implements common context functionality. Uses the Template Method design pattern,
  * requiring concrete subclasses to implement abstract methods.
  * <p>
- * 抽象应用上下文
+ * 抽象应用上下文,既可以是loader也是上下文
  * <p>
  * 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
  * 公众号：bugstack虫洞栈
@@ -83,5 +83,25 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
     public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
         return getBeanFactory().getBean(name, requiredType);
     }
+
+    /**
+     * <p>
+     * 这里主要体现了关于注册钩子和关闭的方法实现，上文提到过的
+     * Runtime.getRuntime().addShutdownHook，可以尝试验证。在一些中间
+     * 件和监控系统的设计中也可以用得到，比如监测服务器宕机，执行备机启动操作。
+     * </p>
+     * @return void
+     * @author heng.xing@hand-china.com 2022/6/6 22:44
+     */
+    @Override
+    public void registerShutdownHook(){
+        Runtime.getRuntime().addShutdownHook(new Thread(this::close));
+    }
+
+    @Override
+    public void close() {
+        getBeanFactory().destroySingletons();
+    }
+
 
 }
