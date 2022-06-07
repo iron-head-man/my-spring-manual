@@ -1,7 +1,7 @@
 package com.xiaoxing.springframwork08.core.io;
 
 import cn.hutool.core.lang.Assert;
-import com.xiaoxing.springframwork07.util.ClassUtils;
+import com.xiaoxing.springframwork08.util.ClassUtils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

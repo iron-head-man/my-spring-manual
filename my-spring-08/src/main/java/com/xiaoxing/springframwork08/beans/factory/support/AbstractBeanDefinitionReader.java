@@ -1,7 +1,7 @@
 package com.xiaoxing.springframwork08.beans.factory.support;
 
-import com.xiaoxing.springframwork07.core.io.DefaultResourceLoader;
-import com.xiaoxing.springframwork07.core.io.ResourceLoader;
+import com.xiaoxing.springframwork08.core.io.DefaultResourceLoader;
+import com.xiaoxing.springframwork08.core.io.ResourceLoader;
 
 /**
  * Abstract base class for bean definition readers which implement

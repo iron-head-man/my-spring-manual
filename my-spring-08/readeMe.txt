@@ -1,0 +1,37 @@
+如果说我希望拿到 Spring 框架中一些提供的资源，那么首先需要考虑以一个
+什么方式去获取，之后你定义出来的获取方式，在 Spring 框架中该怎么去承
+接，实现了这两项内容，就可以扩展出你需要的一些属于 Spring 框架本身的
+能力了。
+
+
+Aware接口从字面上翻译过来是感知捕获的含义。单纯的bean（未实现Aware系列接口）是没有知觉的；
+实现了Aware系列接口的bean可以访问Spring容器。这些Aware系列接口增强了Spring bean的功能，
+但是也会造成对Spring框架的绑定，增大了与Spring框架的耦合度。（Aware是“意识到的，察觉到的”的意思，
+实现了Aware系列接口表明：可以意识到、可以察觉到）
+
+
+1.Aware系列接口的共性
+都以“Aware”结尾
+都是Aware接口的子接口，即都继承了Aware接口
+接口内均定义了一个set方法
+
+
+Aware系列接口，主要用于辅助Spring bean访问Spring容器
+
+
+
+定义接口 Aware，在 Spring 框架中它是一种感知标记性接口，具体的子类定义和
+实现能感知容器中的相关对象。也就是通过这个桥梁，向具体的实现类中提供容器
+服务
+ 继承 Aware 的接口包括：BeanFactoryAware、BeanClassLoaderAware、
+BeanNameAware 和 ApplicationContextAware，当然在 Spring 源码中还有一些其
+他关于注解的，不过目前我们还是用不到。
+ 在具体的接口实现过程中你可以看到，一部分(BeanFactoryAware、
+BeanClassLoaderAware、BeanNameAware)在 factory 的 support 文件夹下，另外
+ApplicationContextAware 是在 context 的 support 中，这是因为不同的内容获取
+需要在不同的包下提供。所以，在 AbstractApplicationContext 的具体实现中会用
+到向 beanFactory 添加 BeanPostProcessor 内容的
+ApplicationContextAwareProcessor 操作，最后由
+AbstractAutowireCapableBeanFactory 创建 createBean 时处理相应的调用操作。
+关于 applyBeanPostProcessorsBeforeInitialization 已经在前面章节中实现过，如果
+忘记可以往前翻翻

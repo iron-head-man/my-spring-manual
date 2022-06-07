@@ -1,11 +1,11 @@
 package com.xiaoxing.springframwork08.context.support;
 
-import com.xiaoxing.springframwork07.beans.BeansException;
-import com.xiaoxing.springframwork07.beans.factory.ConfigurableListableBeanFactory;
-import com.xiaoxing.springframwork07.beans.factory.config.BeanFactoryPostProcessor;
-import com.xiaoxing.springframwork07.beans.factory.config.BeanPostProcessor;
-import com.xiaoxing.springframwork07.context.ConfigurableApplicationContext;
-import com.xiaoxing.springframwork07.core.io.DefaultResourceLoader;
+import com.xiaoxing.springframwork08.beans.BeansException;
+import com.xiaoxing.springframwork08.beans.factory.ConfigurableListableBeanFactory;
+import com.xiaoxing.springframwork08.beans.factory.config.BeanFactoryPostProcessor;
+import com.xiaoxing.springframwork08.beans.factory.config.BeanPostProcessor;
+import com.xiaoxing.springframwork08.context.ConfigurableApplicationContext;
+import com.xiaoxing.springframwork08.core.io.DefaultResourceLoader;
 import com.xiaoxing.springframwork08.context.ApplicationContext;
 
 import java.util.Map;
@@ -31,6 +31,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
         // 2. 获取 BeanFactory
         ConfigurableListableBeanFactory beanFactory = getBeanFactory();
+
+        // 2.1 添加 ApplicationContextAwareProcessor，让继承自 ApplicationContextAware 的 Bean 对象都能感知所属的 ApplicationContext
+        beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
 
         // 3. 在 Bean 实例化之前，执行 BeanFactoryPostProcessor (Invoke factory processors registered as beans in the context.)
         invokeBeanFactoryPostProcessors(beanFactory);

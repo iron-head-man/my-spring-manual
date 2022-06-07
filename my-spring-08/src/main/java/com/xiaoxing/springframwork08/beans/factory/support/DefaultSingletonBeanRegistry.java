@@ -1,8 +1,8 @@
 package com.xiaoxing.springframwork08.beans.factory.support;
 
-import com.xiaoxing.springframwork07.beans.BeansException;
-import com.xiaoxing.springframwork07.beans.factory.DisposableBean;
-import com.xiaoxing.springframwork07.beans.factory.config.SingletonBeanRegistry;
+import com.xiaoxing.springframwork08.beans.BeansException;
+import com.xiaoxing.springframwork08.beans.factory.DisposableBean;
+import com.xiaoxing.springframwork08.beans.factory.config.SingletonBeanRegistry;
 
 import java.util.HashMap;
 import java.util.Map;

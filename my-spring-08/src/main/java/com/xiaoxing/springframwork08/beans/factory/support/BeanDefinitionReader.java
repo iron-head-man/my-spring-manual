@@ -1,8 +1,8 @@
 package com.xiaoxing.springframwork08.beans.factory.support;
 
-import com.xiaoxing.springframwork07.beans.BeansException;
-import com.xiaoxing.springframwork07.core.io.Resource;
-import com.xiaoxing.springframwork07.core.io.ResourceLoader;
+import com.xiaoxing.springframwork08.beans.BeansException;
+import com.xiaoxing.springframwork08.core.io.Resource;
+import com.xiaoxing.springframwork08.core.io.ResourceLoader;
 
 /**
  * Simple interface for bean definition readers.

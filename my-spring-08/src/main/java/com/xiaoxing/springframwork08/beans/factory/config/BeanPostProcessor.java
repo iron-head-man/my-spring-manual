@@ -1,6 +1,6 @@
 package com.xiaoxing.springframwork08.beans.factory.config;
 
-import com.xiaoxing.springframwork07.beans.BeansException;
+import com.xiaoxing.springframwork08.beans.BeansException;
 
 /**
  * Factory hook that allows for custom modification of new bean instances,

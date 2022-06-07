@@ -1,7 +1,7 @@
 package com.xiaoxing.springframwork08.beans.factory.config;
 
-import com.xiaoxing.springframwork07.beans.BeansException;
-import com.xiaoxing.springframwork07.beans.factory.BeanFactory;
+import com.xiaoxing.springframwork08.beans.BeansException;
+import com.xiaoxing.springframwork08.beans.factory.BeanFactory;
 
 /**
  * Extension of the {@link BeanFactory}

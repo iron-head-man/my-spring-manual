@@ -2,15 +2,14 @@ package com.xiaoxing.springframwork08.beans.factory.support;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
-import com.xiaoxing.springframwork07.beans.BeansException;
-import com.xiaoxing.springframwork07.beans.PropertyValue;
-import com.xiaoxing.springframwork07.beans.PropertyValues;
-import com.xiaoxing.springframwork07.beans.factory.DisposableBean;
-import com.xiaoxing.springframwork07.beans.factory.InitializingBean;
-import com.xiaoxing.springframwork07.beans.factory.config.AutowireCapableBeanFactory;
-import com.xiaoxing.springframwork07.beans.factory.config.BeanDefinition;
-import com.xiaoxing.springframwork07.beans.factory.config.BeanPostProcessor;
-import com.xiaoxing.springframwork07.beans.factory.config.BeanReference;
+import com.xiaoxing.springframwork08.beans.BeansException;
+import com.xiaoxing.springframwork08.beans.PropertyValue;
+import com.xiaoxing.springframwork08.beans.PropertyValues;
+import com.xiaoxing.springframwork08.beans.factory.*;
+import com.xiaoxing.springframwork08.beans.factory.config.AutowireCapableBeanFactory;
+import com.xiaoxing.springframwork08.beans.factory.config.BeanDefinition;
+import com.xiaoxing.springframwork08.beans.factory.config.BeanPostProcessor;
+import com.xiaoxing.springframwork08.beans.factory.config.BeanReference;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -118,6 +117,18 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     private Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) throws Exception {
+
+        if(bean instanceof Aware){
+            if (bean instanceof BeanFactoryAware) {
+                ((BeanFactoryAware) bean).setBeanFactory(this);
+            }
+            if (bean instanceof BeanClassLoaderAware){
+                ((BeanClassLoaderAware) bean).setBeanClassLoader(getBeanClassLoader());
+            }
+            if (bean instanceof BeanNameAware) {
+                ((BeanNameAware) bean).setBeanName(beanName);
+            }
+        }
         // 1. 执行 BeanPostProcessor Before 处理，返回一个包装bean
         Object wrappedBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
 

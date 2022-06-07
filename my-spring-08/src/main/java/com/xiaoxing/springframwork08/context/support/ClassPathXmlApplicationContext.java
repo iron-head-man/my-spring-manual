@@ -1,6 +1,6 @@
 package com.xiaoxing.springframwork08.context.support;
 
-import com.xiaoxing.springframwork07.beans.BeansException;
+import com.xiaoxing.springframwork08.beans.BeansException;
 
 /**
  * Standalone XML application context, taking the context definition files

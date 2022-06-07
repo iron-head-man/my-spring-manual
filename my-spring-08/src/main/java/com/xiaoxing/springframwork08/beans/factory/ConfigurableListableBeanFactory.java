@@ -1,10 +1,10 @@
 package com.xiaoxing.springframwork08.beans.factory;
 
-import com.xiaoxing.springframwork07.beans.BeansException;
-import com.xiaoxing.springframwork07.beans.factory.config.AutowireCapableBeanFactory;
-import com.xiaoxing.springframwork07.beans.factory.config.BeanDefinition;
-import com.xiaoxing.springframwork07.beans.factory.config.BeanPostProcessor;
-import com.xiaoxing.springframwork07.beans.factory.config.ConfigurableBeanFactory;
+import com.xiaoxing.springframwork08.beans.BeansException;
+import com.xiaoxing.springframwork08.beans.factory.config.AutowireCapableBeanFactory;
+import com.xiaoxing.springframwork08.beans.factory.config.BeanDefinition;
+import com.xiaoxing.springframwork08.beans.factory.config.BeanPostProcessor;
+import com.xiaoxing.springframwork08.beans.factory.config.ConfigurableBeanFactory;
 
 /**
  * Configuration interface to be implemented by most listable bean factories.

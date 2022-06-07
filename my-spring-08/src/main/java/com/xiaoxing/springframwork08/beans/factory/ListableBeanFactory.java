@@ -1,6 +1,6 @@
 package com.xiaoxing.springframwork08.beans.factory;
 
-import com.xiaoxing.springframwork07.beans.BeansException;
+import com.xiaoxing.springframwork08.beans.BeansException;
 
 import java.util.Map;
 

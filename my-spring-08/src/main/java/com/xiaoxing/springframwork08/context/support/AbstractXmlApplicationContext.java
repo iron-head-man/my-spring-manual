@@ -1,7 +1,7 @@
 package com.xiaoxing.springframwork08.context.support;
 
-import com.xiaoxing.springframwork07.beans.factory.support.DefaultListableBeanFactory;
-import com.xiaoxing.springframwork07.beans.factory.xml.XmlBeanDefinitionReader;
+import com.xiaoxing.springframwork08.beans.factory.support.DefaultListableBeanFactory;
+import com.xiaoxing.springframwork08.beans.factory.xml.XmlBeanDefinitionReader;
 import com.xiaoxing.springframwork08.context.ApplicationContext;
 
 /**

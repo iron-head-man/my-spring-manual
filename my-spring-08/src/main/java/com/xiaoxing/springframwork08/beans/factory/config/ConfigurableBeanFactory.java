@@ -1,6 +1,6 @@
 package com.xiaoxing.springframwork08.beans.factory.config;
 
-import com.xiaoxing.springframwork07.beans.factory.HierarchicalBeanFactory;
+import com.xiaoxing.springframwork08.beans.factory.HierarchicalBeanFactory;
 import com.xiaoxing.springframwork08.beans.factory.BeanFactory;
 
 /**

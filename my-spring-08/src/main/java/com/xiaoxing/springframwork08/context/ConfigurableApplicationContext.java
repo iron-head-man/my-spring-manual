@@ -1,6 +1,6 @@
 package com.xiaoxing.springframwork08.context;
 
-import com.xiaoxing.springframwork07.beans.BeansException;
+import com.xiaoxing.springframwork08.beans.BeansException;
 
 /**
  * SPI interface to be implemented by most if not all application contexts.

@@ -1,6 +1,6 @@
 package com.xiaoxing.springframwork08.context;
 
-import com.xiaoxing.springframwork07.beans.factory.ListableBeanFactory;
+import com.xiaoxing.springframwork08.beans.factory.ListableBeanFactory;
 
 /**
  * Central interface to provide configuration for an application.

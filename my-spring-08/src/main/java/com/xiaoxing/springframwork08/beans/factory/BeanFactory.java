@@ -1,6 +1,6 @@
 package com.xiaoxing.springframwork08.beans.factory;
 
-import com.xiaoxing.springframwork07.beans.BeansException;
+import com.xiaoxing.springframwork08.beans.BeansException;
 
 /**
  * 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
