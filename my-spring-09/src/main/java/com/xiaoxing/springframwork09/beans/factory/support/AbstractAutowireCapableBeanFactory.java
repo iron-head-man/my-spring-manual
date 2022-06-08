@@ -38,7 +38,12 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         }
         // 注册实现了DisposableBean 接口的bean对象
         registerDisposableBeanIfNecessary(beanName, bean, beanDefinition);
-        addSingleton(beanName, bean);
+
+        //判断singleton 还是 prototype，单例模式和原型模式的区别就在于是否存放到内存中，
+        // 如果是原型模式那么就不会存放到内存中，每次获取都重新创建对象
+        if(beanDefinition.isSingleton()){
+            addSingleton(beanName, bean);
+        }
         return bean;
     }
 
@@ -54,6 +59,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
      * 在注册销毁方法的时候，会根据是接口类型和配置类型统一交给
      * DisposableBeanAdapter 销毁适配器类来做统一处理。实现了某个接口的类可以被
      * instanceof 判断或者强转后调用接口方法
+     *
+     *
+     * 09章
      * </p>
      * @param beanName:
      * @param bean:
@@ -66,6 +74,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
      */
     protected void registerDisposableBeanIfNecessary(String beanName, Object bean,
                                                      BeanDefinition beanDefinition) {
+        //09章非单例，不执行销毁方法
+        if (!beanDefinition.isSingleton()) return;
         if (bean instanceof DisposableBean || StrUtil.isNotEmpty(beanDefinition.getDestroyMethodName())) {
             registerDisposableBean(beanName, new DisposableBeanAdapter(bean, beanName, beanDefinition));
         }
@@ -133,7 +143,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         // 1. 执行 BeanPostProcessor Before 处理，返回一个包装bean
         Object wrappedBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
 
-        // 待完成内容：invokeInitMethods(beanName, wrappedBean, beanDefinition);
+        // 调用初始化方法，初始化bean，invokeInitMethods(beanName, wrappedBean, beanDefinition);
         invokeInitMethods(beanName, wrappedBean, beanDefinition);
 
         // 2. 执行 BeanPostProcessor After 处理

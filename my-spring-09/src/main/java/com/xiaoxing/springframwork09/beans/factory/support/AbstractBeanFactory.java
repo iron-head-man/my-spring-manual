@@ -1,6 +1,7 @@
 package com.xiaoxing.springframwork09.beans.factory.support;
 
 import com.xiaoxing.springframwork09.beans.BeansException;
+import com.xiaoxing.springframwork09.beans.factory.FactoryBean;
 import com.xiaoxing.springframwork09.beans.factory.config.BeanDefinition;
 import com.xiaoxing.springframwork09.beans.factory.config.BeanPostProcessor;
 import com.xiaoxing.springframwork09.beans.factory.config.ConfigurableBeanFactory;
@@ -16,7 +17,7 @@ import java.util.List;
  * <p>
  * BeanDefinition注册表接口
  */
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
+public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport implements ConfigurableBeanFactory {
 
     /**
      * BeanPostProcessors to apply in createBean
@@ -41,13 +42,27 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
     }
 
     protected <T> T doGetBean(final String name, final Object[] args) {
-        Object bean = getSingleton(name);
-        if (bean != null) {
-            return (T) bean;
+        Object sharedInstance = getSingleton(name);
+        if (sharedInstance != null) {
+            return (T) getObjectForBeanInstance(sharedInstance, name);
         }
 
         BeanDefinition beanDefinition = getBeanDefinition(name);
-        return (T) createBean(name, beanDefinition, args);
+        Object bean = createBean(name, beanDefinition, args);
+        return (T) getObjectForBeanInstance(bean, name);
+    }
+
+    private Object getObjectForBeanInstance(Object sharedInstance, String name) {
+        if (!(sharedInstance instanceof FactoryBean)) {
+            return sharedInstance;
+        }
+        //先从缓存中拿
+        Object object = getCachedObjectForFactoryBean(name);
+        if (object == null) {
+            FactoryBean<?> factoryBean = (FactoryBean<?>) sharedInstance;
+            object = getObjectFromFactoryBean(factoryBean, name);
+        }
+        return object;
     }
 
     protected abstract BeanDefinition getBeanDefinition(String beanName) throws BeansException;
@@ -68,7 +83,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
         return this.beanPostProcessors;
     }
 
-    public ClassLoader getBeanClassLoader(){
+    public ClassLoader getBeanClassLoader() {
         return this.beanClassLoader;
     }
 

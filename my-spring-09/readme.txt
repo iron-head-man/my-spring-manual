@@ -29,3 +29,16 @@ FactoryBean 类型对象创建过程中关于获取具体调用对象的 getObje
 后，就要开始做执行判断整个对象是否是一个 FactoryBean 对象，如果是这样的
 对象，就需要再继续执行获取 FactoryBean 具体对象中的 getObject 对象了。
 整个 getBean 过程中都会新增一个单例类型的判断factory.isSingleton()，用于决定是否使用内存存放对象信息。
+
+
+
+【AbstractBeanFactory】:
+首先这里把 AbstractBeanFactory 原来继承的 DefaultSingletonBeanRegistry，修改
+为继承 FactoryBeanRegistrySupport。因为需要扩展出创建 FactoryBean 对象的能
+力，所以这就想一个链条服务上，截出一个段来处理额外的服务，并把链条再链接上。
+ 此处新增加的功能主要是在 doGetBean 方法中，添加了调用 (T)
+getObjectForBeanInstance(sharedInstance, name) 对获取
+FactoryBean 的操作。
+ 在 getObjectForBeanInstance 方法中做具体的 instanceof 判断，另外还会从
+FactoryBean 的缓存中获取对象，如果不存在则调用
+FactoryBeanRegistrySupport#getObjectFromFactoryBean，执行具体的操作。

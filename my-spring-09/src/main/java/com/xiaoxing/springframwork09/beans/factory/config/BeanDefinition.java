@@ -22,6 +22,8 @@ public class BeanDefinition {
 
     public void setScope(String scope) {
         this.scope = scope;
+        this.singleton = SCOPE_SINGLETON.equals(scope);
+        this.prototype = SCOPE_PROTOTYPE.equals(scope);
     }
 
     private boolean singleton = true;
