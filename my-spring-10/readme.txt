@@ -15,3 +15,22 @@
 在功能实现上我们需要定义出事件类、事件监听、事件发布，而这些类的功能
 需要结合到 Spring 的 AbstractApplicationContext#refresh()，以便于处理
 事件初始化和注册事件监听器的操作。
+
+
+
+ApplicationContextEvent 是定义事件的抽象类，所有的事件包括关闭、刷新，以及
+用户自己实现的事件，都需要继承这个类。
+ ContextClosedEvent、ContextRefreshedEvent，分别是 Spring 框架自己实现的两
+个事件类，可以用于监听刷新和关闭动作。
+
+
+AbstractApplicationEventMulticaster 是对事件广播器的公用方法提取，在这个类中
+可以实现一些基本功能，避免所有直接实现接口放还需要处理细节。
+ 除了像 addApplicationListener、removeApplicationListener，这样的通用方法，这
+里这个类中主要是对 getApplicationListeners 和 supportsEvent 的处理。
+ getApplicationListeners 方法主要是摘取符合广播事件中的监听处理器，具体过滤
+动作在 supportsEvent 方法中。
+ 在 supportsEvent 方法中，主要包括对 Cglib、Simple 不同实例化需要获取目标
+Class，Cglib 代理类需要获取父类的 Class，普通实例化的不需要。接下来就是通过
+提取接口和对应的 ParameterizedType 和 eventClassName，方便最后确认是否为
+子类和父类的关系，以此证明此事件归这个符合的类处理

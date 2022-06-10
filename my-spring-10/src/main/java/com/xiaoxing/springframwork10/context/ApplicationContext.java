@@ -1,6 +1,8 @@
 package com.xiaoxing.springframwork10.context;
 
+import com.xiaoxing.springframwork10.beans.factory.HierarchicalBeanFactory;
 import com.xiaoxing.springframwork10.beans.factory.ListableBeanFactory;
+import com.xiaoxing.springframwork10.core.io.ResourceLoader;
 
 /**
  * Central interface to provide configuration for an application.
@@ -13,5 +15,5 @@ import com.xiaoxing.springframwork10.beans.factory.ListableBeanFactory;
  * 公众号：bugstack虫洞栈
  * Create by 小傅哥(fustack)
  */
-public interface ApplicationContext extends ListableBeanFactory {
+public interface ApplicationContext extends ListableBeanFactory, HierarchicalBeanFactory, ResourceLoader, ApplicationEventPublisher{
 }

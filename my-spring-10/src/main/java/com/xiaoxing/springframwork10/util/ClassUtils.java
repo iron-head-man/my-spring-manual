@@ -1,13 +1,14 @@
 package com.xiaoxing.springframwork10.util;
 
+import com.xiaoxing.springframwork10.context.ApplicationListener;
+
 public class ClassUtils {
 
     public static ClassLoader getDefaultClassLoader() {
         ClassLoader cl = null;
         try {
             cl = Thread.currentThread().getContextClassLoader();
-        }
-        catch (Throwable ex) {
+        } catch (Throwable ex) {
             // Cannot access thread context ClassLoader - falling back to system class loader...
         }
         if (cl == null) {
@@ -17,4 +18,11 @@ public class ClassUtils {
         return cl;
     }
 
+    public static boolean isCglibProxyClass(Class<? extends ApplicationListener> aClass) {
+        return (null != aClass && isCglibProxyClassName(aClass.getName()));
+    }
+
+    private static boolean isCglibProxyClassName(String name) {
+        return (name != null && name.contains("$$"));
+    }
 }
