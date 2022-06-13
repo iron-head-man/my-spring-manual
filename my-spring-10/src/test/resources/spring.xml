@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <bean class="com.xiaoxing.springframwork10.test.bean.ContextRefreshedEventListener"/>
+    <bean class="com.xiaoxing.springframwork10.test.bean.CustomEventListener"/>
+    <bean class="com.xiaoxing.springframwork10.test.bean.ContextClosedEventListener"/>
+</beans>

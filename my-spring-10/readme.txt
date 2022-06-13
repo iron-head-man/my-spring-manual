@@ -34,3 +34,18 @@ AbstractApplicationEventMulticaster 是对事件广播器的公用方法提取�
 Class，Cglib 代理类需要获取父类的 Class，普通实例化的不需要。接下来就是通过
 提取接口和对应的 ParameterizedType 和 eventClassName，方便最后确认是否为
 子类和父类的关系，以此证明此事件归这个符合的类处理
+
+
+
+在抽象应用上下文 AbstractApplicationContext#refresh 中，主要新增了 初始化
+事件发布者、注册事件监听器、发布容器刷新完成事件，三个方法用于处
+理事件操作。
+ 初始化事件发布者(initApplicationEventMulticaster)，主要用于实例化一个
+SimpleApplicationEventMulticaster，这是一个事件广播器。
+ 注册事件监听器(registerListeners)，通过 getBeansOfType 方法获取到所有从
+spring.xml 中加载到的事件配置 Bean 对象。
+ 发布容器刷新完成事件(finishRefresh)，发布了第一个服务器启动完成后的事件，这
+个事件通过 publishEvent 发布出去，其实也就是调用了
+applicationEventMulticaster.multicastEvent(event); 方法。
+ 最后是一个 close 方法中，新增加了发布一个容器关闭事件。
+publishEvent(new ContextClosedEvent(this));
