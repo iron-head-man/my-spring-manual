@@ -15,11 +15,11 @@ import java.lang.reflect.Method;
 public class ReflectiveMethodInvocation implements MethodInvocation {
 
     // 目标对象
-    private final Object target;
+    protected final Object target;
     // 方法
-    private final Method method;
+    protected final Method method;
     // 入参
-    private final Object[] arguments;
+    protected final Object[] arguments;
 
     public ReflectiveMethodInvocation(Object target, Method method, Object[] arguments) {
         this.target = target;
@@ -29,26 +29,27 @@ public class ReflectiveMethodInvocation implements MethodInvocation {
 
     @Override
     public Method getMethod() {
-        return this.method;
+        return method;
     }
 
     @Override
     public Object[] getArguments() {
-        return this.arguments;
+        return arguments;
     }
 
     @Override
     public Object proceed() throws Throwable {
-        return method.invoke(target,method);
+        return method.invoke(target, arguments);
     }
 
     @Override
     public Object getThis() {
-        return this.target;
+        return target;
     }
 
     @Override
     public AccessibleObject getStaticPart() {
-        return this.method;
+        return method;
     }
+
 }
