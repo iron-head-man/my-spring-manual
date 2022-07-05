@@ -10,4 +10,7 @@ package com.xiaoxing.springframwork11.test.bean;
 public interface IUserService {
 
     public String queryUserInfo();
+
+    String register(String userName);
+
 }
