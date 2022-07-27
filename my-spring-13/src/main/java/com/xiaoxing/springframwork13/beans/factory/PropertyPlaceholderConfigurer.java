@@ -34,7 +34,6 @@ public class PropertyPlaceholderConfigurer implements BeanFactoryPostProcessor {
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
 
-
         try {
             // 加载属性文件
             DefaultResourceLoader resourceLoader = new DefaultResourceLoader();

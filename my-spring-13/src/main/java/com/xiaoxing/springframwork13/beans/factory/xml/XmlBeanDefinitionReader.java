@@ -82,6 +82,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             if (StrUtil.isEmpty(scanPath)) {
                 throw new BeansException("The value of base-package attribute can not be empty or null");
             }
+            //从xml中读取扫描包的位置---如何从注解读取扫描包的位置呢？
             scanPackage(scanPath);
         }
 

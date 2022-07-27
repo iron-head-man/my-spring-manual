@@ -1,4 +1,4 @@
-package java.com.xiaoxing.springframwork13.test.bean;
+package com.xiaoxing.springframwork13.test.bean;
 
 import com.xiaoxing.springframwork13.aop.MethodBeforeAdvice;
 

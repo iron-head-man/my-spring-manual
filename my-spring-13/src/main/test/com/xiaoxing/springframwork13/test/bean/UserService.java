@@ -1,4 +1,6 @@
-package java.com.xiaoxing.springframwork13.test.bean;
+package com.xiaoxing.springframwork13.test.bean;
+
+import com.xiaoxing.springframwork13.stereotype.Component;
 
 import java.util.Random;
 
@@ -9,7 +11,10 @@ import java.util.Random;
  *
  * @author heng.xing@hand-china.com 2022-07-25 11:16
  */
+@Component("userService")
 public class UserService implements IUserService {
+
+    private String token;
 
     public String queryUserInfo() {
         try {
@@ -27,5 +32,18 @@ public class UserService implements IUserService {
             e.printStackTrace();
         }
         return "注册用户：" + userName + " success！";
+    }
+
+    @Override
+    public String toString() {
+        return "UserService#token = { " + token + " }";
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
