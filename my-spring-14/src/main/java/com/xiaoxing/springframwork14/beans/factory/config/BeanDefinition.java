@@ -49,8 +49,6 @@ public class BeanDefinition {
 
     private PropertyValues propertyValues;
 
-
-
 //    在 BeanDefinition 新增加了两个属性：initMethodName、destroyMethodName，
 //    这两个属性是为了在 spring.xml 配置的Bean 对象中，
 //    可以配置 initmethod = "initDataMethod"destroymethod="destroyDataMethod"操作，最终实现接口的效果是一样的。

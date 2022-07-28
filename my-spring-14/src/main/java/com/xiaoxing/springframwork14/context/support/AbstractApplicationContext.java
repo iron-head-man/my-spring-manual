@@ -129,6 +129,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
         return getBeanFactory().getBean(name, requiredType);
     }
 
+    @Override
+    public <T> T getBean(Class<T> requiredType) throws BeansException {
+        return getBeanFactory().getBean(requiredType);
+    }
+
     /**
      * <p>
      * 这里主要体现了关于注册钩子和关闭的方法实现，上文提到过的

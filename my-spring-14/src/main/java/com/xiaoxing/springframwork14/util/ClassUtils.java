@@ -18,8 +18,16 @@ public class ClassUtils {
         return cl;
     }
 
-    public static boolean isCglibProxyClass(Class<? extends ApplicationListener> aClass) {
-        return (null != aClass && isCglibProxyClassName(aClass.getName()));
+//    public static boolean isCglibProxyClass(Class<? extends ApplicationListener> aClass) {
+//        return (null != aClass && isCglibProxyClassName(aClass.getName()));
+//    }
+
+    /**
+     * Check whether the specified class is a CGLIB-generated class.
+     * @param clazz the class to check
+     */
+    public static boolean isCglibProxyClass(Class<?> clazz) {
+        return (clazz != null && isCglibProxyClassName(clazz.getName()));
     }
 
     private static boolean isCglibProxyClassName(String name) {

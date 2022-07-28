@@ -4,6 +4,7 @@ import com.xiaoxing.springframwork13.aop.*;
 import com.xiaoxing.springframwork14.aop.aspectj.AspectJExpressionPointcutAdvisor;
 import com.xiaoxing.springframwork14.aop.framwork.ProxyFactory;
 import com.xiaoxing.springframwork14.beans.BeansException;
+import com.xiaoxing.springframwork14.beans.PropertyValues;
 import com.xiaoxing.springframwork14.beans.factory.BeanFactory;
 import com.xiaoxing.springframwork14.beans.factory.BeanFactoryAware;
 import com.xiaoxing.springframwork14.beans.factory.config.InstantiationAwareBeanPostProcessor;
@@ -67,6 +68,11 @@ public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPos
             return new ProxyFactory(advisedSupport).getProxy();
         }
         return null;
+    }
+
+    @Override
+    public PropertyValues postProcessPropertyValues(PropertyValues pvs, Object bean, String beanName) throws BeansException {
+        return pvs;
     }
 
     // beanClass是 advice的子类，子接口，或者是切点子接口子类，访问者的子类子接口
