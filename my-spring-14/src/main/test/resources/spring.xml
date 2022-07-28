@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+    <bean id="userService" class="com.xiaoxing.springframwork14.test.bean.UserService"/>
+
+    <bean class="com.xiaoxing.springframwork14.aop.framwork.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+    <bean id="beforeAdvice" class="com.xiaoxing.springframwork14.test.bean.UserServiceBeforeAdvice"/>
+
+    <bean id="methodInterceptor" class="com.xiaoxing.springframwork14.aop.framwork.adapter.MethodBeforeAdviceInterceptor">
+        <property name="advice" ref="beforeAdvice"/>
+    </bean>
+
+    <bean id="pointcutAdvisor" class="com.xiaoxing.springframwork14.aop.aspectj.AspectJExpressionPointcutAdvisor">
+        <property name="expression" value="execution(* com.xiaoxing.springframwork14.test.bean.IUserService.*(..))"/>
+        <property name="advice" ref="methodInterceptor"/>
+    </bean>
+
+</beans>
