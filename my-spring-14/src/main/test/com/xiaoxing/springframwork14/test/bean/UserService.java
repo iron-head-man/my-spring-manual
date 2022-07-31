@@ -1,5 +1,7 @@
 package com.xiaoxing.springframwork14.test.bean;
 
+import com.xiaoxing.springframwork14.beans.factory.annotation.Autowired;
+import com.xiaoxing.springframwork14.beans.factory.annotation.Value;
 import com.xiaoxing.springframwork14.stereotype.Component;
 
 import java.util.Random;
@@ -14,7 +16,12 @@ import java.util.Random;
 @Component("userService")
 public class UserService implements IUserService {
 
+    @Value("${token}")
     private String token;
+
+    @Autowired
+    private UserDao dao;
+
 
     public String queryUserInfo() {
         try {
@@ -22,7 +29,7 @@ public class UserService implements IUserService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "小傅哥，100001，深圳";
+        return  dao.queryUserName("10001") + "，" + token;
     }
 
     public String register(String userName) {

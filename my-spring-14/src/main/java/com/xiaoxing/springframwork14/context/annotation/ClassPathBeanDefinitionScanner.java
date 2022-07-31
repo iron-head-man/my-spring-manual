@@ -1,6 +1,7 @@
 package com.xiaoxing.springframwork14.context.annotation;
 
 import cn.hutool.core.util.StrUtil;
+import com.xiaoxing.springframwork14.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import com.xiaoxing.springframwork14.beans.factory.config.BeanDefinition;
 import com.xiaoxing.springframwork14.beans.factory.support.BeanDefinitionRegistry;
 import com.xiaoxing.springframwork14.stereotype.Component;
@@ -34,12 +35,18 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
                 registry.registerBeanDefinition(determineBeanName(beanDefinition), beanDefinition);
             }
         }
+        // 注册处理注解的 BeanPostProcessor（@Autowired、@Value）---》名字写死？
+        registry.registerBeanDefinition(
+                        "com.xiaoxing.springframwork14.context.annotation.internalAutowiredAnnotationProcessor",
+                        new BeanDefinition(AutowiredAnnotationBeanPostProcessor.class));
+
     }
 
     private String resolveBeanScope(BeanDefinition beanDefinition) {
         Class<?> beanClass = beanDefinition.getBeanClass();
         Scope scope = beanClass.getAnnotation(Scope.class);
-        if (null != scope) return scope.value();
+        if (null != scope)
+            return scope.value();
         return StrUtil.EMPTY;
     }
 
