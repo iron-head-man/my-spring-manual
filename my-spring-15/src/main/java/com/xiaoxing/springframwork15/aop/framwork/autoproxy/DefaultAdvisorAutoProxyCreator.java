@@ -1,19 +1,19 @@
-package com.xiaoxing.springframwork14.aop.framwork.autoproxy;
+package com.xiaoxing.springframwork15.aop.framwork.autoproxy;
 
 import java.util.Collection;
 
-import com.xiaoxing.springframwork14.aop.*;
-import com.xiaoxing.springframwork14.beans.BeansException;
-import com.xiaoxing.springframwork14.beans.PropertyValues;
-import com.xiaoxing.springframwork14.beans.factory.BeanFactory;
-import com.xiaoxing.springframwork14.beans.factory.BeanFactoryAware;
-import com.xiaoxing.springframwork14.beans.factory.config.InstantiationAwareBeanPostProcessor;
-import com.xiaoxing.springframwork14.beans.factory.support.DefaultListableBeanFactory;
+import com.xiaoxing.springframwork15.aop.*;
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
 
-import com.xiaoxing.springframwork14.aop.aspectj.AspectJExpressionPointcutAdvisor;
-import com.xiaoxing.springframwork14.aop.framwork.ProxyFactory;
+import com.xiaoxing.springframwork15.aop.aspectj.AspectJExpressionPointcutAdvisor;
+import com.xiaoxing.springframwork15.aop.framwork.ProxyFactory;
+import com.xiaoxing.springframwork15.beans.BeansException;
+import com.xiaoxing.springframwork15.beans.PropertyValues;
+import com.xiaoxing.springframwork15.beans.factory.BeanFactory;
+import com.xiaoxing.springframwork15.beans.factory.BeanFactoryAware;
+import com.xiaoxing.springframwork15.beans.factory.config.InstantiationAwareBeanPostProcessor;
+import com.xiaoxing.springframwork15.beans.factory.support.DefaultListableBeanFactory;
 
 /**
  * <p>
