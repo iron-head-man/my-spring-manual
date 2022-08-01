@@ -38,26 +38,22 @@ public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPos
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        return null;
-    }
-
-    @Override
-    public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
-        if (isInfrastructureClass(beanClass))
-            return null;
+        if (isInfrastructureClass(bean.getClass()))
+            return bean;
         // 拿到所有切面
         Collection<AspectJExpressionPointcutAdvisor> advisors =
                         beanFactory.getBeansOfType(AspectJExpressionPointcutAdvisor.class).values();
 
-        for(AspectJExpressionPointcutAdvisor advisor: advisors){
+        for (AspectJExpressionPointcutAdvisor advisor : advisors) {
             ClassFilter classFilter = advisor.getPointcut().getClassFilter();
-            if (!classFilter.matches(beanClass)) continue;
+            if (!classFilter.matches(bean.getClass()))
+                continue;
 
             AdvisedSupport advisedSupport = new AdvisedSupport();
             TargetSource targetSource = null;
             try {
-                targetSource = new TargetSource(beanClass.getDeclaredConstructor().newInstance());
-            }catch (Exception e){
+                targetSource = new TargetSource(bean.getClass().getDeclaredConstructor().newInstance());
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             advisedSupport.setTargetSource(targetSource);
@@ -67,11 +63,18 @@ public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPos
 
             return new ProxyFactory(advisedSupport).getProxy();
         }
+        return bean;
+    }
+
+    @Override
+    public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
+
         return null;
     }
 
     @Override
-    public PropertyValues postProcessPropertyValues(PropertyValues pvs, Object bean, String beanName) throws BeansException {
+    public PropertyValues postProcessPropertyValues(PropertyValues pvs, Object bean, String beanName)
+                    throws BeansException {
         return pvs;
     }
 

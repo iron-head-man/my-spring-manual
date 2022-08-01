@@ -29,9 +29,4 @@ public class ProxyFactory {
         return new JdkDynamicAopProxy(advisedSupport);
 
     }
-
-    public static void main(String[] args) {
-
-        System.out.println(String.format("收款申请单[%s]系统自动审批","docNumber"));
-    }
 }

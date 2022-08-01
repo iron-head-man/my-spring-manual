@@ -9,6 +9,8 @@ import com.xiaoxing.springframwork15.beans.PropertyValues;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
+import com.xiaoxing.springframwork15.beans.factory.*;
+import com.xiaoxing.springframwork15.beans.factory.config.*;
 
 /**
  * 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！ 公众号：bugstack虫洞栈 Create by 小傅哥(fustack)
@@ -22,11 +24,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     protected Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args) throws BeansException {
         Object bean = null;
         try {
-            // 判断是否返回代理 Bean 对象
-            bean = resolveBeforeInstantiation(beanName, beanDefinition);
-            if (null != bean) {
-                return bean;
-            }
+            // 判断是否返回代理 Bean 对象 --->15章注释掉--代理类放到
+//            bean = resolveBeforeInstantiation(beanName, beanDefinition);
+//            if (null != bean) {
+//                return bean;
+//            }
             // 实例化bean
             bean = createBeanInstance(beanDefinition, beanName, args);
             // 在设置 Bean 属性之前，允许 BeanPostProcessor 修改属性值
